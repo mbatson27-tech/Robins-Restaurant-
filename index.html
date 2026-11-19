@@ -4,6 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-02qgQohNhYGg3BVBgR4mt1dn3B+rhlMcVZ65M/KAZtQ='; style-src 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src data:; base-uri 'none'; form-action 'none'; object-src 'none'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
 <title>Robin's Downtown Cafe | Downtown Bradenton</title>
 <meta name="description" content="Breakfast and lunch on Old Main Street in downtown Bradenton. Omelets, grilled cinnamon rolls, stuffed French toast and a daily specials board. 428 12th St W.">
 <meta name="theme-color" content="#151515">
@@ -448,6 +450,36 @@ footer .row>div:first-child a{display:inline-block;min-height:44px;padding:8px 0
 /* v10: allergen line clearly smaller and quieter than the item name and description (Millen's request) */
 body .cols dd.contains{font-size:.66rem;letter-spacing:.08em;margin-top:3px;opacity:.85;line-height:1.35}
 body .cols dd.contains::before{width:5px;height:5px;border-width:1px;margin:0 6px 1px 0}
+/* v11 fix: long "Closed. Opens tomorrow" status could push the phone number off small screens */
+@media (max-width:860px){.topstrip .tstatus{white-space:normal;min-width:0;flex:1;line-height:1.25}.topstrip .grow{display:none}}
+/* v11: signature plates, visit band, star ratings */
+.sigs{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+.sig{display:flex;flex-direction:column;background:var(--paper);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;box-shadow:0 22px 40px -30px rgba(0,0,0,.45);transition:transform .35s var(--ease-out),box-shadow .35s var(--ease-out)}
+.sig:hover{transform:translateY(-4px);box-shadow:0 30px 50px -30px rgba(0,0,0,.5)}
+.sig-ph{display:block;aspect-ratio:4/3;overflow:hidden;background:var(--surface)}
+.sig-ph img{width:100%;height:100%;object-fit:cover;transition:transform 1s var(--ease-out)}
+.sig:hover .sig-ph img{transform:scale(1.05)}
+.sig-body{padding:22px 24px 24px;display:flex;flex-direction:column;flex:1}
+.sig-body h3{font-size:1.35rem;margin-bottom:8px}
+.sig-body p{color:var(--muted);font-size:.98rem;line-height:1.55;margin:0 0 14px}
+.sig-meta{margin-top:auto!important;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.sig .price{font-weight:700;color:var(--brand);font-size:1.05rem}
+.sig .contains{font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);opacity:.9}
+@media (max-width:900px){.sigs{grid-template-columns:1fr;gap:22px}.sig{display:grid;grid-template-columns:42% 1fr}.sig-ph{aspect-ratio:auto;min-height:100%}.sig-body{padding:16px 16px 18px}.sig-body h3{font-size:1.12rem}.sig-body p{font-size:.9rem;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}}
+.stars{position:relative;display:block;width:86px;height:16px;margin:8px 0 4px;font-size:16px;line-height:16px;letter-spacing:2px}
+.stars::before{content:"\2605\2605\2605\2605\2605";opacity:.28}
+.stars>span{position:absolute;inset:0 auto 0 0;overflow:hidden;white-space:nowrap;color:#f2c14e}
+.stars>span::before{content:"\2605\2605\2605\2605\2605"}
+.readrev{margin-top:28px}
+.visitband{background:var(--surface);border-top:1px solid var(--line);padding:72px 0}
+.vb{display:flex;justify-content:space-between;align-items:center;gap:40px;flex-wrap:wrap}
+.vb h2{margin-bottom:14px}
+.vb-status{display:inline-flex;align-items:center;gap:10px;font-weight:600;margin:0 0 6px}
+.vb-status .dot{width:10px;height:10px}
+.vb-status.open .dot{background:#2e8b57;animation:pulse 2.2s infinite}.vb-status.closed .dot{background:#b5483a}
+.vb-addr{color:var(--muted);margin:0}
+.vb-cta{display:flex;gap:12px;flex-wrap:wrap}
+@media (max-width:760px){.visitband{padding:56px 0}.vb-cta{width:100%}.vb-cta .btn{flex:1 1 100%}}
 /* ===== Theme: Main Street Gazette (Robin's Downtown Cafe) =====
    UI/UX Pro Max: "Editorial / Magazine" style (print-inspired grid, rules, drop caps, kickers, high-contrast ink plus one accent)
    with Playfair Display masthead and headlines, Source Serif 4 body (Bodoni Moda was too hard to read), Libre Franklin labels. */
@@ -555,6 +587,11 @@ body .cols dd.contains::before{width:5px;height:5px;border-width:1px;margin:0 6p
 .t-gazette .reviews li{font-family:var(--body);font-size:1.2rem}
 .t-gazette .cols dd{font-size:1rem}
 
+.t-gazette .sig{border:0;border-top:4px solid var(--ink);border-radius:0;box-shadow:none;background:transparent}.t-gazette .sig:hover{transform:none;box-shadow:none}
+.t-gazette .sig-ph{margin-top:14px}.t-gazette .sig-body{padding:14px 0 0}.t-gazette .sig-body h3{font-weight:800;font-size:1.45rem}.t-gazette .sig .price{color:var(--accent)}
+.t-gazette .sigs{column-gap:36px}
+.t-gazette .visitband{background:var(--paper);border-top:4px double var(--ink);border-bottom:1px solid var(--ink)}.t-gazette .vb h2{font-size:clamp(2.2rem,4vw,3.2rem)}
+
 .hero.full .ph.cover img{object-position:50% 8%}.about .two{grid-template-columns:1fr}@media (min-width:861px){.about .glance{grid-template-columns:repeat(3,1fr)}}
 </style>
 </head>
@@ -585,17 +622,20 @@ body .cols dd.contains::before{width:5px;height:5px;border-width:1px;margin:0 6p
 </div></section>
 
 <section class="strip"><div class="wrap">
-  <div class="shead"><div><p class="eyebrow">From the kitchen</p><h2>A taste of what's cooking.</h2></div><a class="more" href="#gallery" data-go="gallery">See all photos</a></div>
-  <div class="film"><a class="fph" href="#gallery" data-go="gallery" data-g="0"><img alt=""><span></span></a><a class="fph" href="#gallery" data-go="gallery" data-g="2"><img alt=""><span></span></a><a class="fph" href="#gallery" data-go="gallery" data-g="3"><img alt=""><span></span></a><a class="fph" href="#gallery" data-go="gallery" data-g="4"><img alt=""><span></span></a></div>
+  <div class="shead"><div><p class="eyebrow">From the kitchen</p><h2>House favorites.</h2></div><a class="more" href="#menu" data-go="menu">See the full menu</a></div>
+  <div class="sigs"><article class="sig"><a class="sig-ph" href="#menu" data-go="menu" aria-label="Strawberry stuffed French toast on the menu"><img data-copy=".gallery .ph:nth-child(1) img" alt="Strawberry stuffed French toast dusted with powdered sugar"></a><div class="sig-body"><h3>Strawberry stuffed French toast</h3><p>Thick French toast with a sweet cream filling, fresh strawberries and powdered sugar.</p><p class="sig-meta"><span class="contains">Contains wheat, milk, egg</span></p></div></article><article class="sig"><a class="sig-ph" href="#menu" data-go="menu" aria-label="Grilled cinnamon rolls on the menu"><img data-copy=".gallery .ph:nth-child(3) img" alt="Two grilled cinnamon rolls"></a><div class="sig-body"><h3>Grilled cinnamon rolls</h3><p>Baked in house, then split and finished on the grill until the edges caramelize.</p><p class="sig-meta"><span class="contains">Contains wheat, milk, egg</span></p></div></article><article class="sig"><a class="sig-ph" href="#menu" data-go="menu" aria-label="Omelet on the menu"><img data-copy=".gallery .ph:nth-child(4) img" alt="An omelet with toast and a cup of fresh fruit"></a><div class="sig-body"><h3>Omelet</h3><p>An omelet with toast and a cup of fresh fruit.</p><p class="sig-meta"></p></div></article></div>
 </div></section>
 
 <section class="block reviews"><div class="wrap grid">
   <div><p class="eyebrow">Reviews</p><h2>A local favorite for breakfast.</h2>
-    <div class="score"><div><b data-count="4.5">4.5</b><span>552 Google reviews</span></div><div><b data-count="4.2">4.2</b><span>145 Tripadvisor reviews</span></div></div>
-    <p style="margin-top:28px"><a href="https://www.google.com/maps/search/?api=1&query=Robin%27s+Downtown+Cafe%2C+428+12th+St+W%2C+Bradenton%2C+FL+34205" target="_blank" rel="noopener">Read the reviews on Google</a></p></div>
+    <div class="score"><div><b data-count="4.5">4.5</b><span class="stars" role="img" aria-label="4.5 out of 5 stars"><span style="width:90%"></span></span><span>552 Google reviews</span></div><div><b data-count="4.2">4.2</b><span class="stars" role="img" aria-label="4.2 out of 5 stars"><span style="width:84%"></span></span><span>145 Tripadvisor reviews</span></div></div>
+    <p class="readrev"><a href="https://www.google.com/maps/search/?api=1&query=Robin%27s+Downtown+Cafe%2C+428+12th+St+W%2C+Bradenton%2C+FL+34205" target="_blank" rel="noopener">Read the reviews on Google</a></p></div>
   <div><p class="eyebrow">Guests mention</p><ul><li>Omelets</li><li>Grilled cinnamon rolls</li><li>Coffee that keeps coming</li><li>Friendly, familiar service</li><li>The sidewalk patio</li></ul></div>
 </div></section>
-<div class="next"><div class="wrap"><a class="btn" href="#menu" data-go="menu">See the menu</a><a class="btn ghost" href="#contact" data-go="contact">Hours &amp; location</a></div></div>
+<section class="visitband"><div class="wrap vb"><div><p class="eyebrow">Come on in</p><h2>Come see us downtown.</h2>
+  <p class="vb-status" id="vbstatus"><i class="dot"></i><span>See today's hours</span></p><p class="vb-addr">428 12th St W, Bradenton, FL 34205</p></div>
+  <div class="vb-cta"><a class="btn" href="tel:+19417478899">Call (941) 747-8899</a><a class="btn ghost" href="https://www.google.com/maps/dir/?api=1&destination=Robin%27s+Downtown+Cafe%2C+428+12th+St+W%2C+Bradenton%2C+FL+34205" target="_blank" rel="noopener">Get directions</a></div>
+</div></section>
 </div>
 
 <div class="view" data-view="menu" hidden>
@@ -606,7 +646,7 @@ body .cols dd.contains::before{width:5px;height:5px;border-width:1px;margin:0 6p
   <div class="cols"><div class="panel" role="tabpanel" data-i="0"><h3>Breakfast</h3><dl><div class="item"><dt><b>Classic Greek omelette</b><u></u></dt><dd>Three eggs folded crepe-style around sausage, tomato, onion, spinach and feta. With toast or a biscuit and home fries, hash browns or grits.</dd><dd class=contains>Contains egg, milk, wheat, pork</dd></div><div class="item"><dt><b>Farmers Market omelet</b><u></u></dt><dd>Three eggs filled with fresh garden vegetables, with grits and rye toast.</dd><dd class=contains>Contains egg, wheat</dd></div><div class="item"><dt><b>Western omelette</b><u></u></dt><dd>Ham, bell pepper and onion, with a breakfast side and toast.</dd><dd class=contains>Contains egg, wheat, pork</dd></div><div class="item"><dt><b>Grilled cinnamon rolls</b><u></u></dt><dd>Baked in house, then split and finished on the grill until the edges caramelize.</dd><dd class=contains>Contains wheat, milk, egg</dd></div><div class="item"><dt><b>Strawberry stuffed French toast</b><u></u></dt><dd>Thick French toast with a sweet cream filling, fresh strawberries and powdered sugar.</dd><dd class=contains>Contains wheat, milk, egg</dd></div><div class="item"><dt><b>Pumpkin pecan pancakes</b><u></u></dt><dd>Pumpkin-spiced pancakes with toasted pecans.</dd><dd class=contains>Contains wheat, milk, egg, tree nuts</dd></div><div class="item"><dt><b>Home-made hash and eggs</b><u></u></dt><dd>Corned beef hash made here, two eggs your way and sourdough toast.</dd><dd class=contains>Contains egg, wheat</dd></div><div class="item"><dt><b>Eggs Benedict</b><u></u></dt><dd>Poached eggs and ham on an English muffin with hollandaise. Weekends only.</dd><dd class=contains>Contains egg, wheat, milk, pork</dd></div></dl></div><div class="panel" role="tabpanel" data-i="1" hidden><h3>Lunch</h3><dl><div class="item"><dt><b>Pot roast beef melt</b><u></u></dt><dd>Slow-cooked pot roast and melted cheese on grilled bread.</dd><dd class=contains>Contains wheat, milk</dd></div><div class="item"><dt><b>Reuben</b><u></u></dt><dd>Corned beef, Swiss, sauerkraut and dressing on grilled rye.</dd><dd class=contains>Contains wheat, milk, egg</dd></div><div class="item"><dt><b>Traditional or chicken gyro</b><u></u></dt><dd>Warm pita with tomato, onion and tzatziki, served with a small Greek salad.</dd><dd class=contains>Contains wheat, milk</dd></div><div class="item"><dt><b>Turkey bacon club</b><u></u></dt><dd>Turkey, bacon, lettuce, tomato and mayo, stacked on toast.</dd><dd class=contains>Contains wheat, egg, pork</dd></div><div class="item"><dt><b>Spinach, tomato and feta quiche</b><u></u></dt><dd>Baked in a pastry crust and served by the slice.</dd><dd class=contains>Contains egg, milk, wheat</dd></div><div class="item"><dt><b>Greek salad</b><u></u></dt><dd>Greens, tomato, cucumber, onion, olives and feta.</dd><dd class=contains>Contains milk</dd></div><div class="item"><dt><b>Soup of the day or chili</b><u></u></dt><dd>Made in house. Ask what is on today.</dd></div><div class="item"><dt><b>Daily specials</b><u></u></dt><dd>New on the board every day.</dd></div></dl></div><div class="panel" role="tabpanel" data-i="2" hidden><h3>Drinks</h3><dl><div class="item"><dt><b>Bottomless coffee</b><u></u></dt><dd>Hot, fresh and refilled without asking.</dd></div><div class="item"><dt><b>Mimosas</b><u></u></dt><dd>By the glass or the carafe.</dd><dd class=contains>Contains sulfites</dd></div><div class="item"><dt><b>Sangria</b><u></u></dt><dd>By the glass or the carafe.</dd><dd class=contains>Contains sulfites</dd></div></dl></div></div>
   <p class="note">Concept note: prices and final descriptions to come from the cafe's current menu.</p>
   <p class="note allergy">Allergen notes are a guide. Please tell your server about any allergy.</p>
-  <div class="menu-tools"><a class="btn" href="tel:+19417478899">Call to order</a><button class="btn ghost print" type="button" onclick="window.print()"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h10v4H7zM5 9h14a2 2 0 0 1 2 2v6h-4v4H7v-4H3v-6a2 2 0 0 1 2-2zm4 7v3h6v-3zm8-4.5a1 1 0 1 0 0 .01z"/></svg>Print the menu</button></div>
+  <div class="menu-tools"><a class="btn" href="tel:+19417478899">Call to order</a><button class="btn ghost print" type="button" id="printmenu"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h10v4H7zM5 9h14a2 2 0 0 1 2 2v6h-4v4H7v-4H3v-6a2 2 0 0 1 2-2zm4 7v3h6v-3zm8-4.5a1 1 0 1 0 0 .01z"/></svg>Print the menu</button></div>
 </div></div></section>
 
 <div class="next"><div class="wrap"><a class="btn" href="#contact" data-go="contact">Hours &amp; location</a><a class="btn ghost" href="#gallery" data-go="gallery">See the photos</a></div></div>
@@ -652,7 +692,7 @@ const p=new Intl.DateTimeFormat("en-US",{timeZone:"America/New_York",weekday:"lo
 const g=t=>p.find(x=>x.type===t).value, day=D.indexOf(g("weekday")), now=(+g("hour")%24)*60+ +g("minute");
 const tb=document.querySelector("#hours tbody");
 [1,2,3,4,5,6,0].forEach(i=>{const h=HOURS[i],tr=document.createElement("tr");if(i===day)tr.className="today";
-  tr.innerHTML="<th scope='row'>"+D[i]+"</th><td>"+(h?f(h[0])+" to "+f(h[1]):"Closed")+"</td>";tb.appendChild(tr)});
+  const th=document.createElement("th"),td=document.createElement("td");th.scope="row";th.textContent=D[i];td.textContent=h?f(h[0])+" to "+f(h[1]):"Closed";tr.append(th,td);tb.appendChild(tr)});
 const s=document.getElementById("status"),t=HOURS[day];let txt,cls="closed";
 if(t&&now>=t[0]&&now<t[1]){cls="open";txt="Open now until "+f(t[1])}
 else if(t&&now<t[0]){txt="Opens today at "+f(t[0])}
@@ -694,7 +734,7 @@ if(location.hash.length>1)show(location.hash.slice(1));
   // footer hours, grouped
   const ord=[1,2,3,4,5,6,0],key=i=>HOURS[i]?HOURS[i].join():"x",fh=document.getElementById("fhours");
   for(let a=0;a<7;){let b=a;while(b<6&&key(ord[b+1])===key(ord[a]))b++;const h=HOURS[ord[a]],li=document.createElement("li");
-    li.innerHTML="<span>"+sd(ord[a])+(b>a?" to "+sd(ord[b]):"")+"</span><span>"+(h?f(h[0])+" to "+f(h[1]):"Closed")+"</span>";fh.appendChild(li);a=b+1}
+    const s1=document.createElement("span"),s2=document.createElement("span");s1.textContent=sd(ord[a])+(b>a?" to "+sd(ord[b]):"");s2.textContent=h?f(h[0])+" to "+f(h[1]):"Closed";li.append(s1,s2);fh.appendChild(li);a=b+1}
   // reuse gallery photos for the home strip and page banners (no duplicate image data)
   const gi=[...document.querySelectorAll(".gallery .ph img")],hi=document.querySelector(".hero .ph img");
   document.querySelectorAll(".fph").forEach(a=>{const im=gi[+a.dataset.g];if(!im){a.remove();return}a.firstChild.src=im.src;a.firstChild.alt=im.alt;a.lastChild.textContent=(im.parentNode.dataset.label||"").replace(/^Photo: /,"")});
@@ -706,12 +746,14 @@ if(location.hash.length>1)show(location.hash.slice(1));
   figs.forEach((fg,i)=>{fg.tabIndex=0;fg.setAttribute("role","button");fg.setAttribute("aria-label","Enlarge photo: "+gi[i].alt);fg.addEventListener("click",()=>open(i));fg.addEventListener("keydown",ev=>{if(ev.key==="Enter"||ev.key===" "){ev.preventDefault();open(i)}})});
   lb.querySelector(".x").onclick=close;lb.querySelector(".pv").onclick=()=>open(cur-1);lb.querySelector(".nx").onclick=()=>open(cur+1);
   lb.addEventListener("click",ev=>{if(ev.target===lb)close()});
-  addEventListener("keydown",ev=>{if(lb.hidden)return;if(ev.key==="Escape")close();if(ev.key==="ArrowLeft")open(cur-1);if(ev.key==="ArrowRight")open(cur+1)});
+  addEventListener("keydown",ev=>{if(lb.hidden)return;if(ev.key==="Tab"){const fo=[...lb.querySelectorAll("button")],i=fo.indexOf(document.activeElement);ev.preventDefault();fo[(i+(ev.shiftKey?-1:1)+fo.length)%fo.length].focus();return}if(ev.key==="Escape")close();if(ev.key==="ArrowLeft")open(cur-1);if(ev.key==="ArrowRight")open(cur+1)});
   // swipe between photos on phones (buttons and arrow keys still work)
   let sx=null;li.addEventListener("touchstart",ev=>{sx=ev.touches[0].clientX},{passive:true});
   li.addEventListener("touchend",ev=>{if(sx===null)return;const dx=ev.changedTouches[0].clientX-sx;sx=null;if(Math.abs(dx)>45)open(cur+(dx<0?1:-1))},{passive:true});
   // v7 theme helpers: reuse photos already on the page, print today's date and hours
-  document.querySelectorAll("img[data-copy]").forEach(im=>{const s=document.querySelector(im.dataset.copy);if(s&&s.src)im.src=s.src;else im.closest("figure").remove()});
+  document.querySelectorAll("img[data-copy]").forEach(im=>{const s=document.querySelector(im.dataset.copy);if(s&&s.src)im.src=s.src;else(im.closest("figure,.sig")||im).remove()});
+  const vb=document.getElementById("vbstatus");if(vb){vb.classList.add(cls);vb.lastElementChild.textContent=st}
+  const pm=document.getElementById("printmenu");if(pm)pm.addEventListener("click",()=>print());
   const gd=document.getElementById("gzdate");if(gd)gd.textContent=new Intl.DateTimeFormat("en-US",{timeZone:"America/New_York",weekday:"long",month:"long",day:"numeric",year:"numeric"}).format(new Date());
   const dt=document.getElementById("dntoday");if(dt)dt.textContent=t?f(t[0])+" to "+f(t[1]):"Closed today";
   // back to top
